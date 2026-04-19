@@ -3,7 +3,7 @@
 // ============================================================
 import type { ApiResponse } from '../types'
 
-const BASE = 'http://localhost:8080/escola/api'
+const BASE = 'http://localhost:8080/escola/escola/api'
 
 // ── Core fetch ───────────────────────────────────────────────
 

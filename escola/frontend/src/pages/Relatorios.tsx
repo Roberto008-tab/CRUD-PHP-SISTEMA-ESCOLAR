@@ -26,11 +26,16 @@ export default function Relatorios() {
     periodo_fim:    new Date().toISOString().split('T')[0],
   })
 
-  const ref = useRef<ReturnType<typeof setTimeout>>()
-  const showMsg = (m: string, e = false) => {
-    e ? (setErro(m), setMsg('')) : (setMsg(m), setErro(''))
-    clearTimeout(ref.current); ref.current = setTimeout(() => { setMsg(''); setErro('') }, 6000)
-  }
+  // Linha 29: Mudamos o tipo para 'number'
+const ref = useRef<number | null>(null)
+
+const showMsg = (m: string, e = false) => {
+  e ? (setErro(m), setMsg('')) : (setMsg(m), setErro(''))
+  
+  // Linha 32: Usamos window.clearTimeout e window.setTimeout
+  if (ref.current) window.clearTimeout(ref.current);
+  ref.current = window.setTimeout(() => { setMsg(''); setErro('') }, 6000)
+}
 
   useEffect(() => {
     relatoriosApi.list()
@@ -66,6 +71,33 @@ export default function Relatorios() {
     } catch (err: unknown) { showMsg((err as Error).message, true) }
   }
 
+ const handleEnviarEmail = async (id: number) => {
+  const emailDestino = window.prompt("Digite o e-mail do destinatário:")
+  if (!emailDestino) return
+
+  try {
+    // Usamos 'withCredentials: true' para enviar o login pro PHP
+    const res = await fetch('http://localhost:8080/escola/escola/api/relatorios.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ acao: 'enviar_email', relatorio_id: id, email: emailDestino }),
+      // 👇 ESSA LINHA É FUNDAMENTAL 👇
+      credentials: 'include' 
+    })
+    
+    const data = await res.json()
+    
+    if (data.success) {
+      showMsg('📧 E-mail enviado com sucesso!')
+    } else {
+      // Se o PHP responder erro do SendGrid, ele vai aparecer aqui
+      showMsg(data.message || 'Erro ao enviar e-mail', true)
+    }
+  } catch (err: unknown) { 
+    showMsg('Erro de conexão ao enviar e-mail', true) 
+  }
+}
+
   // Tela de detalhe
   if (verRel) {
     const d    = verRel.dados ?? {}
@@ -85,7 +117,7 @@ export default function Relatorios() {
 
         <div className="stats-grid">
           {[
-            { icon: '📅', value: `${pct}%`,           label: 'Taxa de Presença',    color: 'rgba(16,185,129,.12)' },
+            { icon: '📅', value: `${pct}%`,          label: 'Taxa de Presença',    color: 'rgba(16,185,129,.12)' },
             { icon: '❌', value: freq.ausentes ?? 0,   label: 'Ausências',           color: 'rgba(244,63,94,.12)' },
             { icon: '📝', value: (d.notas ?? []).length, label: 'Disciplinas',       color: 'rgba(59,130,246,.12)' },
             { icon: '👨‍🎓', value: d.novos_alunos ?? 0, label: 'Novos Alunos',       color: 'rgba(240,165,0,.12)' },
@@ -146,6 +178,19 @@ export default function Relatorios() {
           {!verRel.enviado_nuvem && isDiretor(cargo) && (
             <button className="btn btn-gold" onClick={() => handleNuvem(verRel.id)}>☁️ Enviar para Supabase</button>
           )}
+          
+          {/* 👇 Novo Botão de E-mail 👇 */}
+          {isDiretor(cargo) && (
+            <button 
+              className="btn" 
+              style={{ backgroundColor: 'var(--indigo)', color: 'white', border: 'none' }} 
+              onClick={() => handleEnviarEmail(verRel.id)}
+            >
+              📧 Enviar por E-mail
+            </button>
+          )}
+          {/* 👆 Fim do Novo Botão 👆 */}
+
           <button className="btn btn-ghost" onClick={() => window.print()}>🖨️ Imprimir</button>
         </div>
       </>

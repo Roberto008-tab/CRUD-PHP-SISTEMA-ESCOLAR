@@ -1,64 +1,79 @@
-# 🎓 EduGestor v3 — Unified School Management
+# 🎓 EduGestor v3 — Gestão Escolar Full-Stack
 
-O **EduGestor v3** é uma plataforma full-stack de alto desempenho para gestão escolar. Esta versão marca a evolução definitiva de um sistema legado para uma arquitetura moderna e escalável, utilizando **React** no frontend e uma **API PHP robusta** no backend, integrada a serviços de nuvem líderes de mercado.
+[![React](https://img.shields.io/badge/React-18-61dafb)](https://react.dev) [![PHP](https://img.shields.io/badge/PHP-8.x-777bb4)](https://php.net) [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178c6)](https://typescriptlang.org) [![Tailwind](https://img.shields.io/badge/Tailwind-4.0-38b2ac)](https://tailwindcss.com) [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
----
+Plataforma full-stack para gestão escolar integrada com Supabase, SendGrid e OpenAI.
 
-## 🌟 Diferenciais da Versão 3.0
+## ✨ Funcionalidades
 
-* **Arquitetura Híbrida:** Performance de banco de dados local (**SQLite**) com a segurança da persistência em nuvem (**Supabase**).
-* **Comunicação Automatizada:** Fluxo de notificação de relatórios via e-mail utilizando a infraestrutura do **SendGrid**.
-* **Segurança Avançada:** Sistema de permissões baseado em cargos (RBAC) e proteção total de credenciais via variáveis de ambiente (`.env`).
-* **Interface Progressiva:** UI moderna construída com **Tailwind CSS 4.0**, focada na experiência do usuário (UX).
+- 👥 **CRUD de Alunos** — Cadastro, edição, exclusão com filtros
+- 📝 **Lançamento de Notas** — Interface em tempo real, histórico de mudanças
+- 📍 **Chamada Digital** — Controle de frequência, justificativas
+- 📊 **Dashboard** — KPIs em tempo real, gráficos interativos
+- 📈 **Relatórios** — Geração em PDF/CSV, envio automático por email
+- 🔐 **Autenticação JWT** — RBAC (admin, professor, aluno)
+- ☁️ **Sync Cloud** — Supabase para backup, SendGrid para notificações
 
----
+## 📸 Interface
 
-## 🚀 Tecnologias e Integrações
+| | |
+|---|---|
+| ![Dashboard](./screenshots/dashboard.png) | ![Alunos](./screenshots/alunos.png) |
+| ![Notas](./screenshots/notas.png) | ![Presença](./screenshots/presenca.png) |
+| ![Professores](./screenshots/professores.png) | ![Relatórios](./screenshots/relatorios.png) |
+| ![Login](./screenshots/login.png) | ![Usuários](./screenshots/usuarios.png) |
+
+## 🛠️ Tech Stack
+
+**Frontend:** React 18 + TypeScript + Tailwind CSS + Vite  
+**Backend:** PHP 8.x + SQLite + PDO (prepared statements)  
+**Cloud:** Supabase (database), SendGrid (email), OpenAI (insights)
+
+## 🚀 Quickstart
+
+### Backend
+```bash
+cp .env.example .env
+nano .env  # SUPABASE_URL, SENDGRID_API_KEY, JWT_SECRET
+php -S localhost:8000 -t public/
+```
 
 ### Frontend
-* **React 18 + TypeScript:** Tipagem estática para um código livre de erros.
-* **Vite:** Build tool de última geração.
-* **Tailwind CSS 4.0:** Estilização utilitária de alta performance.
-* **Context API:** Gerenciamento de estado global e autenticação.
+```bash
+cd frontend
+npm install
+npm run dev  # http://localhost:5173
+```
 
-### Backend & Cloud
-* **PHP 8.x API:** Endpoints otimizados para comunicação JSON.
-* **SQLite 3 + PDO:** Banco de dados relacional ágil com proteção contra SQL Injection.
-* **Supabase Cloud:** Sincronização e backup externo de relatórios críticos.
-* **SendGrid API:** Motor de disparo de e-mails transacionais para responsáveis.
+### Login
+```
+Email: admin
+Senha: admin123
+```
+
+## 📁 Estrutura
+
+```
+├── api/               # Backend PHP
+├── frontend/          # React + TypeScript
+├── database/          # Schema SQLite
+├── screenshots/       # 8 screenshots
+└── .env.example       # Variáveis
+```
+
+## 🔐 Segurança
+
+✅ JWT com expiração | ✅ RBAC (roles) | ✅ SQL Injection prevention  
+✅ XSS protection | ✅ CORS restritivo | ✅ Rate limiting | ✅ HTTPS produção
+
+## 👤 Autor
+
+**Roberto Átila Almeida Azevedo**
+
+- 🔗 GitHub: [@robertoatila](https://github.com/robertoatila)
+- 🔗 LinkedIn: [Roberto Átila](https://www.linkedin.com/in/roberto-átila-almeida-azevedo-0a64412b4/)
+- 📧 Email: roberto.atila10@exemplo.com
 
 ---
 
-## 📦 Estrutura do Ecossistema
-
-```text
-escola/
-├── api/                # Endpoints REST (Auth, Relatórios, Alunos, Notas)
-├── frontend/           # Aplicação Single Page (SPA) em React
-│   ├── src/
-│   │   ├── components/ # Componentes reutilizáveis
-│   │   ├── pages/      # Telas principais (Dashboard, Relatórios, etc.)
-│   │   └── services/   # Camada de comunicação com a API (Axios)
-├── database/           # Persistência local (SQLite)
-├── includes/           # Configurações globais e Core do sistema
-└── .env                # Cofre de chaves (Supabase, SendGrid, OpenAI)
-🔧 Configuração e Instalação
-
-Backend:
-
-Certifique-se de ter o PHP 8.x instalado.
-Configure o arquivo .env com suas chaves do Supabase e SendGrid.
-O banco SQLite será gerado automaticamente no primeiro acesso.
-
-Frontend:
-    Bash
-cd frontend
-npm install
-npm run dev
-
-🛠️ Funcionalidades Principais
-
-Dashboard Administrativo: Visão geral de métricas da instituição.
-Gestão Acadêmica: Controle completo de alunos, professores e turmas.
-Lançamento de Notas e Presença: Interface intuitiva para o corpo docente.
-Gerador de Relatórios: Consolidação de dados com opção de backup em nuvem e envio imediato por e-mail.
+⭐ Se foi útil, dê uma estrela!

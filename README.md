@@ -18,10 +18,10 @@ Plataforma full-stack para gestão escolar integrada com Supabase, SendGrid e Op
 
 | | |
 |---|---|
-| ![Dashboard](./screenshots/dashboard.png) | ![Alunos](./screenshots/alunos.png) |
-| ![Notas](./screenshots/notas.png) | ![Presença](./screenshots/presenca.png) |
-| ![Professores](./screenshots/professores.png) | ![Relatórios](./screenshots/relatorios.png) |
-| ![Login](./screenshots/login.png) | ![Usuários](./screenshots/usuarios.png) |
+| ![Dashboard](./escola/screenshots/dashboard.png) | ![Alunos](./escola/screenshots/alunos.png) |
+| ![Notas](./escola/screenshots/notas.png) | ![Presença](./escola/screenshots/presenca.png) |
+| ![Professores](./escola/screenshots/professores.png) | ![Relatórios](./escola/screenshots/relatorios.png) |
+| ![Login](./escola/screenshots/login.png) | ![Usuários](./escola/screenshots/usuarios.png) |
 
 ## 🛠️ Tech Stack
 
@@ -72,7 +72,7 @@ Senha: admin123
 
 - 🔗 GitHub: [@robertoatila](https://github.com/robertoatila)
 - 🔗 LinkedIn: [Roberto Átila](https://www.linkedin.com/in/roberto-átila-almeida-azevedo-0a64412b4/)
-- 📧 Email: roberto.atila10@exemplo.com
+- 📧 Email: roberto.atila10@gmail.com
 
 ---
 
